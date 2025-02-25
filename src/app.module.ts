@@ -18,8 +18,8 @@ import { ensureDatabaseExists } from './repository/database-init';
           host: configService.get<string>('DB_HOST', 'localhost'),
           port: configService.get<number>('DB_PORT', 5432),
           user: configService.get<string>('DB_USERNAME', 'postgres'),
-          password: configService.get<string>('DB_PASSWORD', 'mypassword'),
-          database: configService.get<string>('DB_NAME', 'mydbname'),
+          password: configService.get<string>('DB_PASSWORD', 'justaplaceholder'),
+          database: configService.get<string>('DB_NAME', 'justaplaceholder'),
         };
         await ensureDatabaseExists(dbConfig);
         return {
