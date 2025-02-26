@@ -35,42 +35,37 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  async updateUser(id: string, data: CreateUserDto): Promise<User> {
-    const user = await this.userRepository.findOne({
-      where: { id },
-      relations: ['contact', 'address', 'academicBackgrounds'],
-    });
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
-
-    await this.userContactRepository.update(user.contact.id, data.contact);
-    await this.userAddressRepository.update(user.address.id, data.address);
-    await this.academicBackgroundRepository.delete({ user: { id } });
-    
-    const academicBackgrounds = data.academicBackgrounds.map((background) =>
-      this.academicBackgroundRepository.create({ ...background, user }),
-    );
-    await this.academicBackgroundRepository.save(academicBackgrounds);
-
-    await this.userRepository.update(id, {
-      profilePhoto: data.profilePhoto,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      dob: data.dob,
-      occupation: data.occupation,
-      gender: data.gender,
-    });
-
-    return this.userRepository.findOne({ where: { id }, relations: ['contact', 'address', 'academicBackgrounds'] });
+async updateUser(id: string, data: CreateUserDto): Promise<User> {
+  const user = await this.userRepository.findOne({
+    where: { id },
+    relations: ['contact', 'address', 'academicBackgrounds'],
+  });
+  if (!user) {
+    throw new NotFoundException(`User with ID ${id} not found`);
   }
-
-  async deleteUser(id: string): Promise<void> {
+  await this.userContactRepository.update(user.contact.id, data.contact);
+  await this.userAddressRepository.update(user.address.id, data.address);
+  await this.academicBackgroundRepository.delete({ user: { id } }); // Deletes all academic backgrounds
+  const academicBackgrounds = data.academicBackgrounds.map((background) =>
+    this.academicBackgroundRepository.create({ ...background, user }),
+  );
+  await this.academicBackgroundRepository.save(academicBackgrounds);
+  await this.userRepository.update(id, {
+    profilePhoto: data.profilePhoto,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    dob: data.dob,
+    occupation: data.occupation,
+    gender: data.gender,
+  });
+  return this.userRepository.findOne({ where: { id }, relations: ['contact', 'address', 'academicBackgrounds'] });
+}
+async deleteUser(id: string): Promise<void> {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
-    await this.userRepository.delete(id);
+    await this.userRepository.delete(id); 
   }
 
   async getAllUsers(): Promise<User[]> {

@@ -18,6 +18,6 @@ export class UserContact {
   @Column({ nullable: true })
   linkedInUrl: string;
 
-  @OneToOne(() => User, (user) => user.contact)
+  @OneToOne(() => User, (user) => user.contact,{ onDelete: 'CASCADE' })
   user: User; 
 }

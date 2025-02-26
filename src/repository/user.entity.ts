@@ -26,14 +26,17 @@ export class User {
   @Column()
   gender: string;
 
-  @OneToOne(() => UserContact, (userContact) => userContact.user, { cascade: true })
+  @OneToOne(() => UserContact, (userContact) => userContact.user, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   contact: UserContact;
 
-  @OneToOne(() => UserAddress, (userAddress) => userAddress.user, { cascade: true })
+  @OneToOne(() => UserAddress, (userAddress) => userAddress.user, { cascade: true, onDelete: 'CASCADE' })
   @JoinColumn()
   address: UserAddress;
 
-  @OneToMany(() => AcademicBackground, (academicBackground) => academicBackground.user, { cascade: true })
-  academicBackgrounds: AcademicBackground[]; 
+  @OneToMany(() => AcademicBackground, (academicBackground) => academicBackground.user, { 
+  cascade: true, 
+  onDelete: 'CASCADE', 
+})
+academicBackgrounds: AcademicBackground[];
 }

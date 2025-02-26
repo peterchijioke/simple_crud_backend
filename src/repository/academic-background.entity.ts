@@ -21,6 +21,6 @@ export class AcademicBackground {
   @Column({ type: 'date', nullable: true })
   endDate: Date;
 
-  @ManyToOne(() => User, (user) => user.academicBackgrounds)
-  user: User; 
+@ManyToOne(() => User, (user) => user.academicBackgrounds, { onDelete: 'CASCADE' })
+user: User;
 }

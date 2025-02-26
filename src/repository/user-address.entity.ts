@@ -21,6 +21,6 @@ export class UserAddress {
   @Column()
   zipCode: string; 
 
-  @OneToOne(() => User, (user) => user.address)
-  user: User; 
+@OneToOne(() => User, (user) => user.address, { onDelete: 'CASCADE' })
+user: User;
 }
