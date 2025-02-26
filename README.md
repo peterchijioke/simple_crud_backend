@@ -25,7 +25,7 @@ A RESTful API built with NestJS, TypeORM, and PostgreSQL to manage user informat
 ## Installation
 ### Clone the Repository
 ```sh
-git clone https://github.com/your-username/user-management-api.git
+git clone https://github.com/peterchijioke/simple_crud_backend.git
 cd user-management-api
 ```
 
