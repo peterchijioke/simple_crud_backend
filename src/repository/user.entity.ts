@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { UserContact } from './user-contact.entity';
+import { UserAddress } from './user-address.entity';
+import { AcademicBackground } from './academic-background.entity';
 
 @Entity()
 export class User {
@@ -22,4 +25,15 @@ export class User {
 
   @Column()
   gender: string;
+
+  @OneToOne(() => UserContact, (userContact) => userContact.user, { cascade: true })
+  @JoinColumn()
+  contact: UserContact;
+
+  @OneToOne(() => UserAddress, (userAddress) => userAddress.user, { cascade: true })
+  @JoinColumn()
+  address: UserAddress;
+
+  @OneToMany(() => AcademicBackground, (academicBackground) => academicBackground.user, { cascade: true })
+  academicBackgrounds: AcademicBackground[]; 
 }

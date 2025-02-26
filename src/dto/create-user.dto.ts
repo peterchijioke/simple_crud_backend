@@ -1,27 +1,41 @@
 import { IsString, IsDateString, IsOptional, IsNotEmpty } from 'class-validator';
+import { CreateUserAddressDto } from './create-user-address.dto';
+import { CreateUserContactDto } from './create-user-contact.dto';
+import { CreateAcademicBackgroundDto } from './create-user-academic-background.dto';
+
+
 
 export class CreateUserDto {
-  @IsOptional()
   @IsString()
+  @IsOptional()
   profilePhoto?: string;
 
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   firstName: string;
 
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   lastName: string;
 
-  @IsNotEmpty()
   @IsDateString()
-  dob: string; 
-
   @IsNotEmpty()
+  dob: string;
+
   @IsString()
+  @IsNotEmpty()
   occupation: string;
 
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   gender: string;
+
+  @IsNotEmpty()
+  contact: CreateUserContactDto;
+
+  @IsNotEmpty()
+  address: CreateUserAddressDto;
+
+  @IsNotEmpty()
+  academicBackgrounds: CreateAcademicBackgroundDto[];
 }
